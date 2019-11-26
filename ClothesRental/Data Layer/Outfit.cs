@@ -1,35 +1,36 @@
-
-
-//generatory danych ?
-
-
 using System;
 
 namespace ClothesRental.Data_Layer
 {
     public class Outfit
     {
+        //assigning unique value of outfit
         private static int iterator = 0;
         private readonly int outfitID = 100 + iterator;
-//        private enum outfitType
-//        {
-//            Cowboi, SadGirl, Emosy, BuzzAstral 
-//        }
+        
         private string outfitType;
-        private enum outfitSize
-        {
-            XS = 34, S = 36, M = 38 
-        }
-
+        private char outfitSize;
+        
         public Outfit()
         {
             iterator++;
-            outfitType = "jojo";
+            outfitType = "Wonder Woman";
+            outfitSize = 'S';
         }
 
-        public Outfit(String size)
+        public Outfit(char size, string type)
         {
-            setOutfitSize(size);
+            if (size == 'S' || size == 'M' || size == 'L')
+            {
+                iterator++;
+                outfitSize = size;
+                outfitType = type;
+            }
+        }
+
+        public char getOutfitSize()
+        {
+            return outfitSize;
         }
 
         public int getOutfitID()
@@ -41,30 +42,5 @@ namespace ClothesRental.Data_Layer
         {
             return outfitType;
         }
-
-        public int getOutfitSize()
-        {
-            return 0;
-        }
-
-        public int setOutfitSize(string size)
-        {
-            if (size == "S")
-            {
-                outfitSize value = outfitSize.S;
-                return 1;
-            }     
-            else if (size == "M")
-            {
-                outfitSize value = outfitSize.M;
-                return 1;
-            } 
-            else if (size == "XS")
-            {
-                outfitSize value = outfitSize.XS;
-                return 1;
-            }
-            else return 0;
-        }
     }
-}
+}    //generatory danych ?
