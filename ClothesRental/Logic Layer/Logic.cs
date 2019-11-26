@@ -206,5 +206,10 @@ namespace ClothesRental.Logic_Layer
         {
             
         }
+
+        private void openDB()
+        {
+            
+        }
     }
 }
