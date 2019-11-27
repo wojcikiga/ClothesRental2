@@ -9,6 +9,8 @@ namespace ClothesRental.Logic_Layer
     {
         public void app()
         {
+            
+            
             UsersList usersList = new UsersList();
             
             startScreen(usersList);
@@ -178,6 +180,7 @@ namespace ClothesRental.Logic_Layer
         
         public void showRented()
         {
+            
             
         }
         
