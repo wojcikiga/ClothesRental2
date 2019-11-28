@@ -86,6 +86,8 @@ namespace ClothesRental.Logic_Layer
             pswd = Console.ReadLine();
             
             Customer customer = new Customer(name, surname, nickname, pswd);
+            //user.addUser(name, surname, nickname, pswd);
+            
             
             userScreen(customer);
         }

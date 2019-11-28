@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="Data Layer\Assortment.cs" />
     <Compile Include="Data Layer\Customer.cs" />
+    <Compile Include="Data Layer\Database.cs" />
+    <Compile Include="Data Layer\DBSQLite.cs" />
     <Compile Include="Data Layer\Events.cs" />
     <Compile Include="Data Layer\Outfit.cs" />
     <Compile Include="Data Layer\UsersList.cs" />
