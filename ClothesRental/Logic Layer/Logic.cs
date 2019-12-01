@@ -7,9 +7,12 @@ namespace ClothesRental.Logic_Layer
 {
     public class Logic
     {
+        Database db = new DBSQLite();
+        
         public void app()
         {
-            
+
+            //db.open();
             
             UsersList usersList = new UsersList();
             
@@ -52,7 +55,9 @@ namespace ClothesRental.Logic_Layer
             Console.Write("Enter your password: ");
             pswd = Console.ReadLine();
             
+            
             logIn(nick, pswd);
+            
         }
         
             public void logIn(string nick, string pssswd)
@@ -86,8 +91,7 @@ namespace ClothesRental.Logic_Layer
             pswd = Console.ReadLine();
             
             Customer customer = new Customer(name, surname, nickname, pswd);
-            //user.addUser(name, surname, nickname, pswd);
-            
+            db.addUser(name, surname, nickname, pswd);
             
             userScreen(customer);
         }
@@ -95,7 +99,8 @@ namespace ClothesRental.Logic_Layer
         public void userScreen(Customer customer)
         {
             Console.Clear();
-            if (customer.getOutfitList().Count == 0)
+            //if (customer.getOutfitList().Count == 0)
+            if (db.customersList(customer.getID()).Count == 0)
             {
                 string read = "";
                 Console.WriteLine("Your rental list is empty");
@@ -113,7 +118,10 @@ namespace ClothesRental.Logic_Layer
             {
                 string read = "";
                 Console.WriteLine("Your rental list: ");
+                customer.setOutfitList(db.customersList(customer.getID()));
                 displayCustomerList(customer);
+                
+                Console.WriteLine("");
                 Console.WriteLine("What do you want to do?");
                 Console.WriteLine("\tr - rent an outfit");
                 Console.WriteLine("\tg - give back an outfit");
@@ -134,15 +142,24 @@ namespace ClothesRental.Logic_Layer
             showAvailableOutfits();
             Console.Write("Enter outfit ID to rent it: ");
             read = Console.ReadLine();
-            //rentOutfit(customer, int.Parse(read));
+            rentOutfit(customer, int.Parse(read));
             successScreen(customer);
         }
         
-            public void rentOutfit(Customer customer, int outfitID)
+        public void rentOutfit(Customer customer, int outfitID) 
+        {
+            if (db.availableOutfitsList().Contains(outfitID))
             {
-                //customer.addToOutfitList();
-                
+                db.rentOutfit(customer.getID(), outfitID);
             }
+            else
+            {
+                Console.Clear();
+                Console.Write("Wrong outfit ID!");
+                System.Threading.Thread.Sleep(1500);
+                rentScreen(customer);
+            }
+        }
 
         public void giveBackScreen(Customer customer)
         {

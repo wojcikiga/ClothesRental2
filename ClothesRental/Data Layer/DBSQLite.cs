@@ -52,5 +52,10 @@ namespace ClothesRental.Data_Layer
             ArrayList ar = new ArrayList();
             return ar;
         }
+
+        public void rentOutfit(int customer_id, int outfit_id)
+        {
+            //add new rental to database.customers_list and remove the outfit_id from database.outfits
+        }
     }
 }
