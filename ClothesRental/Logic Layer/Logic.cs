@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Globalization;
 using System.Net.Mime;
 using ClothesRental.Data_Layer;
@@ -14,12 +15,10 @@ namespace ClothesRental.Logic_Layer
 
             //db.open();
             
-            UsersList usersList = new UsersList();
-            
-            startScreen(usersList);
+            startScreen();
         }
 
-        public void startScreen(UsersList usersList)
+        public void startScreen()
         {
             string read = "";
             
@@ -37,7 +36,7 @@ namespace ClothesRental.Logic_Layer
 
             if (read == "c") register();
             else if (read == "l") logInScreen();
-            else if (read == "1") showCustomers(usersList);
+            else if (read == "1") showCustomers();
             else if (read == "2") showAllAssortment();
             else if (read == "3") showAvailableOutfits();
             else if (read == "4") showRented();
@@ -156,7 +155,7 @@ namespace ClothesRental.Logic_Layer
             {
                 Console.Clear();
                 Console.Write("Wrong outfit ID!");
-                System.Threading.Thread.Sleep(1500);
+                System.Threading.Thread.Sleep(1000);
                 rentScreen(customer);
             }
         }
@@ -168,13 +167,24 @@ namespace ClothesRental.Logic_Layer
             Console.Write("Enter outfit ID to give it back: ");
             read = Console.ReadLine();
             //giveBack(customer, int.Parse(read));
+            
             successScreen(customer);
         }
         
-            public void giveBack(Customer customer, int outfitID)
+        public void giveBack(Customer customer, int outfitID)
+        {
+            if (db.customersList(customer.getID()).Contains(outfitID))
             {
-                
+                db.giveBackOutfit(customer.getID(), outfitID);
             }
+            else
+            {
+                Console.Clear();
+                Console.Write("Wrong outfit ID!");
+                System.Threading.Thread.Sleep(1000);
+                giveBackScreen(customer);
+            }
+        }
 
         public void successScreen(Customer customer)
         {
@@ -199,34 +209,61 @@ namespace ClothesRental.Logic_Layer
         
         public void showRented()
         {
-            
-            
+            ArrayList rented = new ArrayList();
+            rented = db.showRented();
+            for (int i = 0; i < rented.Count; i++)
+            {
+                Console.WriteLine(rented[i]);
+            }
+
         }
         
-        public void showCustomers(UsersList usersList)
+        public void showCustomers()
         {
-            for (int i = 0; i < usersList.getUsersList().Count; i++)
+            ArrayList users = new ArrayList();
+            users = db.listOfUsers();
+            for (int i = 0; i < users.Count; i++)
             {
-                Console.WriteLine(usersList.getUsersList().IndexOf(i));
+                Console.WriteLine(users[i]);
             }
         }
 
         public void displayCustomerList(Customer customer)
         {
-            for (int i = 0; i < customer.getOutfitList().Count; i++)
+//            for (int i = 0; i < customer.getOutfitList().Count; i++)
+//            {
+//                Console.WriteLine(customer.getOutfitList().IndexOf(i).ToString());
+//            }
+            ArrayList cusList = new ArrayList();
+            cusList = db.customersList(customer.getID());
+            for (int i = 0; i < cusList.Count; i++)
             {
-                Console.WriteLine(customer.getOutfitList().IndexOf(i).ToString());
+                Console.WriteLine(cusList[i]);
             }
         }
 
         public void showAvailableOutfits()
         {
-            
+            ArrayList avOutfits = new ArrayList();
+            avOutfits = db.availableOutfitsList();
+            Console.Clear();
+            Console.WriteLine("AVAILABLE OUTFITS");
+            for (int i = 0; i < avOutfits.Count; i++)
+            {
+                Console.WriteLine(avOutfits[i]);
+            }
         }
         
         public void showAllAssortment()
         {
-            
+            ArrayList alOutfits = new ArrayList();
+            alOutfits = db.allAssortmentList();
+            Console.Clear();
+            Console.WriteLine("AVAILABLE OUTFITS");
+            for (int i = 0; i < alOutfits.Count; i++)
+            {
+                Console.WriteLine(alOutfits[i]);
+            }
         }
     }
 }

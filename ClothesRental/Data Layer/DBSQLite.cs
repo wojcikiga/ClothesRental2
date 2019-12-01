@@ -57,5 +57,10 @@ namespace ClothesRental.Data_Layer
         {
             //add new rental to database.customers_list and remove the outfit_id from database.outfits
         }
+
+        public void giveBackOutfit(int cus_id, int outfit_id)
+        {
+            //removes record form database.customers_list and add outfit_id to database.outfits
+        }
     }
 }

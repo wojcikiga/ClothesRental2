@@ -11,5 +11,6 @@ namespace ClothesRental.Data_Layer
         ArrayList showRented();            //return all outfit_id s from database.customers_list into ArrayList
         ArrayList customersList(int customer_id);         //return list of outfits rented by user into ArrayList
         void rentOutfit(int customer_id, int outfit_id);    //add new rental to database.customers_list and remove the outfit_id from database.outfits
+        void giveBackOutfit(int cus_id, int outfit_id);     //removes record form database.customers_list and add outfit_id to database.outfits
     }
 }
